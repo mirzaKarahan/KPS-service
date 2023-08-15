@@ -1,0 +1,592 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns="http://kps.nvi.gov.tr/2023/02/01" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" name="BilesikKutukSorgulaKimlikNoServis" targetNamespace="http://kps.nvi.gov.tr/2023/02/01" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsp:Policy wsu:Id="CustomBinding_BilesikKutukSorgulaKimlikNoServis_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:TransportBinding xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <sp:HttpsToken />
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+            <sp:IncludeTimestamp />
+          </wsp:Policy>
+        </sp:TransportBinding>
+        <sp:EndorsingSupportingTokens xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702">
+          <wsp:Policy>
+            <sp:IssuedToken sp:IncludeToken="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702/IncludeToken/AlwaysToRecipient">
+              <Issuer xmlns="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702">
+                <Address xmlns="http://www.w3.org/2005/08/addressing">https://kimlikdogrulama.nvi.gov.tr/Services/Issuer.svc/IWSTrust13</Address>
+                <Metadata xmlns="http://www.w3.org/2005/08/addressing">
+                  <Metadata xmlns="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                    <wsx:MetadataSection xmlns="" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex">
+                      <wsx:MetadataReference>
+                        <Address xmlns="http://www.w3.org/2005/08/addressing">https://kimlikdogrulama.nvi.gov.tr/Services/Issuer.svc/mex</Address>
+                      </wsx:MetadataReference>
+                    </wsx:MetadataSection>
+                  </Metadata>
+                </Metadata>
+              </Issuer>
+              <sp:RequestSecurityTokenTemplate>
+                <trust:KeyType xmlns:trust="http://docs.oasis-open.org/ws-sx/ws-trust/200512">http://docs.oasis-open.org/ws-sx/ws-trust/200512/SymmetricKey</trust:KeyType>
+              </sp:RequestSecurityTokenTemplate>
+              <wsp:Policy>
+                <sp:RequireInternalReference />
+              </wsp:Policy>
+            </sp:IssuedToken>
+          </wsp:Policy>
+        </sp:EndorsingSupportingTokens>
+        <sp:Wss11 xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702">
+          <wsp:Policy />
+        </sp:Wss11>
+        <sp:Trust13 xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702">
+          <wsp:Policy>
+            <sp:MustSupportIssuedTokens />
+            <sp:RequireClientEntropy />
+            <sp:RequireServerEntropy />
+          </wsp:Policy>
+        </sp:Trust13>
+        <wsaw:UsingAddressing />
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsdl:types>
+    <xsd:schema elementFormDefault="qualified" targetNamespace="http://kps.nvi.gov.tr/2023/02/01">
+      <xsd:element name="Sorgula">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="kriterListesi" nillable="true" type="tns:ArrayOfBilesikKutukSorgulaKimlikNoSorguKriteri" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="ArrayOfBilesikKutukSorgulaKimlikNoSorguKriteri">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="BilesikKutukSorgulaKimlikNoSorguKriteri" nillable="true" type="tns:BilesikKutukSorgulaKimlikNoSorguKriteri" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="ArrayOfBilesikKutukSorgulaKimlikNoSorguKriteri" nillable="true" type="tns:ArrayOfBilesikKutukSorgulaKimlikNoSorguKriteri" />
+      <xsd:complexType name="BilesikKutukSorgulaKimlikNoSorguKriteri">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="DogumAy" nillable="true" type="xsd:int" />
+          <xsd:element minOccurs="0" name="DogumGun" nillable="true" type="xsd:int" />
+          <xsd:element minOccurs="0" name="DogumYil" nillable="true" type="xsd:int" />
+          <xsd:element minOccurs="0" name="KimlikNo" nillable="true" type="xsd:long" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="BilesikKutukSorgulaKimlikNoSorguKriteri" nillable="true" type="tns:BilesikKutukSorgulaKimlikNoSorguKriteri" />
+      <xsd:element name="SorgulaResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="SorgulaResult" nillable="true" type="tns:BilesikKutukBilgileriSonucu" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="BilesikKutukBilgileriSonucu">
+        <xsd:sequence>
+          <xsd:element xmlns:q1="http://kps.nvi.gov.tr/2011/01/01" minOccurs="0" name="HataBilgisi" nillable="true" type="q1:Parametre" />
+          <xsd:element minOccurs="0" name="SorguSonucu" nillable="true" type="tns:ArrayOfBilesikKutukBilgileri" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="BilesikKutukBilgileriSonucu" nillable="true" type="tns:BilesikKutukBilgileriSonucu" />
+      <xsd:complexType name="ArrayOfBilesikKutukBilgileri">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="BilesikKutukBilgileri" nillable="true" type="tns:BilesikKutukBilgileri" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="ArrayOfBilesikKutukBilgileri" nillable="true" type="tns:ArrayOfBilesikKutukBilgileri" />
+      <xsd:complexType name="BilesikKutukBilgileri">
+        <xsd:sequence>
+          <xsd:element xmlns:q2="http://schemas.datacontract.org/2004/07/Common.Types.Constants" minOccurs="0" name="DoluBilesenler" nillable="true" type="q2:ArrayOfCstBilesikKutukServisDoluBilesen" />
+          <xsd:element xmlns:q3="http://kps.nvi.gov.tr/2011/01/01" minOccurs="0" name="HataBilgisi" nillable="true" type="q3:Parametre" />
+          <xsd:element minOccurs="0" name="KimlikNo" nillable="true" type="xsd:long" />
+          <xsd:element minOccurs="0" name="MaviKartliKisiKutukleri" nillable="true" type="tns:MaviKartKisiKutukleri" />
+          <xsd:element minOccurs="0" name="TCVatandasiKisiKutukleri" nillable="true" type="tns:TCVatandasiKisiKutukleri" />
+          <xsd:element minOccurs="0" name="YabanciKisiKutukleri" nillable="true" type="tns:YabanciKisiKutukleri" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="BilesikKutukBilgileri" nillable="true" type="tns:BilesikKutukBilgileri" />
+      <xsd:complexType name="MaviKartKisiKutukleri">
+        <xsd:sequence>
+          <xsd:element xmlns:q4="http://kps.nvi.gov.tr/2011/01/01" minOccurs="0" name="HataBilgisi" nillable="true" type="q4:Parametre" />
+          <xsd:element minOccurs="0" name="KisiBilgisi" nillable="true" type="tns:MaviKartKisiBilgisi" />
+          <xsd:element minOccurs="0" name="MaviKartBilgisi" nillable="true" type="tns:MaviKartBilgi" />
+          <xsd:element minOccurs="0" name="YeniMaviKartBilgisi" nillable="true" type="tns:YeniMaviKartBilgi" />
+          <xsd:element minOccurs="0" name="YeniMaviKartFotoBilgisi" nillable="true" type="tns:YeniMaviFotoBilgi" />
+          <xsd:element minOccurs="0" name="YeniMaviKartGeciciKimlikBilgisi" nillable="true" type="tns:YeniMaviKartGeciciKimlikBilgi" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="MaviKartKisiKutukleri" nillable="true" type="tns:MaviKartKisiKutukleri" />
+      <xsd:complexType name="MaviKartKisiBilgisi">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="AnneTCKimlikNo" nillable="true" type="xsd:long" />
+          <xsd:element minOccurs="0" name="BabaTCKimlikNo" nillable="true" type="xsd:long" />
+          <xsd:element minOccurs="0" name="DogumYerKod" nillable="true" type="xsd:int" />
+          <xsd:element xmlns:q5="http://kps.nvi.gov.tr/2011/01/01" minOccurs="0" name="DurumBilgisi" nillable="true" type="q5:MaviKartKisiDurumBilgisi" />
+          <xsd:element minOccurs="0" name="EsTCKimlikNo" nillable="true" type="xsd:long" />
+          <xsd:element minOccurs="0" name="GercekKisiKimlikNo" nillable="true" type="xsd:long" />
+          <xsd:element xmlns:q6="http://kps.nvi.gov.tr/2011/01/01" minOccurs="0" name="HataBilgisi" nillable="true" type="q6:Parametre" />
+          <xsd:element minOccurs="0" name="KazanilanTCKimlikNo" nillable="true" type="xsd:long" />
+          <xsd:element minOccurs="0" name="KimlikNo" nillable="true" type="xsd:long" />
+          <xsd:element xmlns:q7="http://kps.nvi.gov.tr/2011/01/01" minOccurs="0" name="TemelBilgisi" nillable="true" type="q7:MaviKartKisiTemelBilgisi" />
+          <xsd:element xmlns:q8="http://kps.nvi.gov.tr/2011/01/01" minOccurs="0" name="Ulke" nillable="true" type="q8:Parametre" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="MaviKartKisiBilgisi" nillable="true" type="tns:MaviKartKisiBilgisi" />
+      <xsd:complexType name="MaviKartBilgi">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="Ad" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="AnneAd" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="BabaAd" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="Birim" nillable="true" type="xsd:int" />
+          <xsd:element xmlns:q9="http://kps.nvi.gov.tr/2011/01/01" minOccurs="0" name="Cinsiyet" nillable="true" type="q9:Parametre" />
+          <xsd:element xmlns:q10="http://kps.nvi.gov.tr/2011/01/01" minOccurs="0" name="DogumTarih" nillable="true" type="q10:TarihBilgisi" />
+          <xsd:element minOccurs="0" name="DogumYer" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="DogumYerKod" nillable="true" type="xsd:int" />
+          <xsd:element xmlns:q11="http://kps.nvi.gov.tr/2011/01/01" minOccurs="0" name="HataBilgisi" nillable="true" type="q11:Parametre" />
+          <xsd:element minOccurs="0" name="KartKayitNo" nillable="true" type="xsd:long" />
+          <xsd:element minOccurs="0" name="KimlikNo" nillable="true" type="xsd:long" />
+          <xsd:element xmlns:q12="http://kps.nvi.gov.tr/2011/01/01" minOccurs="0" name="MedeniHal" nillable="true" type="q12:Parametre" />
+          <xsd:element minOccurs="0" name="No" nillable="true" type="xsd:int" />
+          <xsd:element minOccurs="0" name="OncekiSoyad" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="Seri" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="Soyad" nillable="true" type="xsd:string" />
+          <xsd:element xmlns:q13="http://kps.nvi.gov.tr/2011/01/01" minOccurs="0" name="Uyruk" nillable="true" type="q13:Parametre" />
+          <xsd:element xmlns:q14="http://kps.nvi.gov.tr/2011/01/01" minOccurs="0" name="VerilisNeden" nillable="true" type="q14:Parametre" />
+          <xsd:element xmlns:q15="http://kps.nvi.gov.tr/2011/01/01" minOccurs="0" name="VerilmeTarih" nillable="true" type="q15:TarihBilgisi" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="MaviKartBilgi" nillable="true" type="tns:MaviKartBilgi" />
+      <xsd:complexType name="YeniMaviKartBilgi">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="Ad" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="AnneAd" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="BabaAd" nillable="true" type="xsd:string" />
+          <xsd:element xmlns:q16="http://kps.nvi.gov.tr/2011/01/01" minOccurs="0" name="Cinsiyet" nillable="true" type="q16:Parametre" />
+          <xsd:element xmlns:q17="http://kps.nvi.gov.tr/2011/01/01" minOccurs="0" name="DogumTarih" nillable="true" type="q17:TarihBilgisi" />
+          <xsd:element xmlns:q18="http://kps.nvi.gov.tr/2011/01/01" minOccurs="0" name="HataBilgisi" nillable="true" type="q18:Parametre" />
+          <xsd:element minOccurs="0" name="KimlikNo" nillable="true" type="xsd:long" />
+          <xsd:element minOccurs="0" name="SeriNo" nillable="true" type="xsd:string" />
+          <xsd:element xmlns:q19="http://kps.nvi.gov.tr/2011/01/01" minOccurs="0" name="SonGecerlilikTarih" nillable="true" type="q19:TarihBilgisi" />
+          <xsd:element minOccurs="0" name="Soyad" nillable="true" type="xsd:string" />
+          <xsd:element xmlns:q20="http://kps.nvi.gov.tr/2011/01/01" minOccurs="0" name="Uyruk" nillable="true" type="q20:Parametre" />
+          <xsd:element minOccurs="0" name="VerenMakam" nillable="true" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="YeniMaviKartBilgi" nillable="true" type="tns:YeniMaviKartBilgi" />
+      <xsd:complexType name="YeniMaviFotoBilgi">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="Fotograf" nillable="true" type="xsd:base64Binary" />
+          <xsd:element xmlns:q21="http://kps.nvi.gov.tr/2011/01/01" minOccurs="0" name="HataBilgisi" nillable="true" type="q21:Parametre" />
+          <xsd:element minOccurs="0" name="KimlikNo" nillable="true" type="xsd:long" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="YeniMaviFotoBilgi" nillable="true" type="tns:YeniMaviFotoBilgi" />
+      <xsd:complexType name="YeniMaviKartGeciciKimlikBilgi">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="Ad" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="AnneAd" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="BabaAd" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="BelgeNo" nillable="true" type="xsd:string" />
+          <xsd:element xmlns:q22="http://kps.nvi.gov.tr/2011/01/01" minOccurs="0" name="Cinsiyet" nillable="true" type="q22:Parametre" />
+          <xsd:element xmlns:q23="http://kps.nvi.gov.tr/2011/01/01" minOccurs="0" name="DogumTarih" nillable="true" type="q23:TarihBilgisi" />
+          <xsd:element xmlns:q24="http://kps.nvi.gov.tr/2011/01/01" minOccurs="0" name="DuzenlenmeTarih" nillable="true" type="q24:TarihBilgisi" />
+          <xsd:element xmlns:q25="http://kps.nvi.gov.tr/2011/01/01" minOccurs="0" name="DuzenleyenIlce" nillable="true" type="q25:Parametre" />
+          <xsd:element minOccurs="0" name="Fotograf" nillable="true" type="xsd:base64Binary" />
+          <xsd:element xmlns:q26="http://kps.nvi.gov.tr/2011/01/01" minOccurs="0" name="HataBilgisi" nillable="true" type="q26:Parametre" />
+          <xsd:element minOccurs="0" name="KimlikNo" nillable="true" type="xsd:long" />
+          <xsd:element xmlns:q27="http://kps.nvi.gov.tr/2011/01/01" minOccurs="0" name="SonGecerlilikTarih" nillable="true" type="q27:TarihBilgisi" />
+          <xsd:element minOccurs="0" name="Soyad" nillable="true" type="xsd:string" />
+          <xsd:element xmlns:q28="http://kps.nvi.gov.tr/2011/01/01" minOccurs="0" name="Uyruk" nillable="true" type="q28:Parametre" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="YeniMaviKartGeciciKimlikBilgi" nillable="true" type="tns:YeniMaviKartGeciciKimlikBilgi" />
+      <xsd:complexType name="TCVatandasiKisiKutukleri">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="GeciciKimlikBilgisi" nillable="true" type="tns:TCGeciciKimlikBilgisi" />
+          <xsd:element xmlns:q29="http://kps.nvi.gov.tr/2011/01/01" minOccurs="0" name="HataBilgisi" nillable="true" type="q29:Parametre" />
+          <xsd:element minOccurs="0" name="KisiBilgisi" nillable="true" type="tns:TCKisiBilgisi" />
+          <xsd:element minOccurs="0" name="NufusCuzdaniBilgisi" nillable="true" type="tns:TCCuzdanBilgisi" />
+          <xsd:element minOccurs="0" name="TCKKBilgisi" nillable="true" type="tns:TCKK" />
+          <xsd:element minOccurs="0" name="TCKKFotografBilgisi" nillable="true" type="tns:TCKKFotoBilgisi" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="TCVatandasiKisiKutukleri" nillable="true" type="tns:TCVatandasiKisiKutukleri" />
+      <xsd:complexType name="TCGeciciKimlikBilgisi">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="Ad" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="AnneAd" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="BabaAd" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="BelgeNo" nillable="true" type="xsd:string" />
+          <xsd:element xmlns:q30="http://kps.nvi.gov.tr/2011/01/01" minOccurs="0" name="Cinsiyet" nillable="true" type="q30:Parametre" />
+          <xsd:element xmlns:q31="http://kps.nvi.gov.tr/2011/01/01" minOccurs="0" name="DogumTarih" nillable="true" type="q31:TarihBilgisi" />
+          <xsd:element xmlns:q32="http://kps.nvi.gov.tr/2011/01/01" minOccurs="0" name="DuzenlenmeTarih" nillable="true" type="q32:TarihBilgisi" />
+          <xsd:element xmlns:q33="http://kps.nvi.gov.tr/2011/01/01" minOccurs="0" name="DuzenleyenIlce" nillable="true" type="q33:Parametre" />
+          <xsd:element minOccurs="0" name="Fotograf" nillable="true" type="xsd:base64Binary" />
+          <xsd:element xmlns:q34="http://kps.nvi.gov.tr/2011/01/01" minOccurs="0" name="HataBilgisi" nillable="true" type="q34:Parametre" />
+          <xsd:element xmlns:q35="http://kps.nvi.gov.tr/2011/01/01" minOccurs="0" name="KanGrubu" nillable="true" type="q35:Parametre" />
+          <xsd:element minOccurs="0" name="OncekiSoyad" nillable="true" type="xsd:string" />
+          <xsd:element xmlns:q36="http://kps.nvi.gov.tr/2011/01/01" minOccurs="0" name="SonGecerlilikTarih" nillable="true" type="q36:TarihBilgisi" />
+          <xsd:element minOccurs="0" name="Soyad" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="TCKimlikNo" nillable="true" type="xsd:long" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="TCGeciciKimlikBilgisi" nillable="true" type="tns:TCGeciciKimlikBilgisi" />
+      <xsd:complexType name="TCKisiBilgisi">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="AnneTCKimlikNo" nillable="true" type="xsd:long" />
+          <xsd:element minOccurs="0" name="AnneUstSoyBulunamadi" nillable="true" type="xsd:boolean" />
+          <xsd:element minOccurs="0" name="BabaTCKimlikNo" nillable="true" type="xsd:long" />
+          <xsd:element minOccurs="0" name="BabaUstSoyBulunamadi" nillable="true" type="xsd:boolean" />
+          <xsd:element minOccurs="0" name="DogumYerKod" nillable="true" type="xsd:int" />
+          <xsd:element xmlns:q37="http://kps.nvi.gov.tr/2011/01/01" minOccurs="0" name="DurumBilgisi" nillable="true" type="q37:TCKisiDurumBilgisi" />
+          <xsd:element minOccurs="0" name="EsTCKimlikNo" nillable="true" type="xsd:long" />
+          <xsd:element xmlns:q38="http://kps.nvi.gov.tr/2011/01/01" minOccurs="0" name="HataBilgisi" nillable="true" type="q38:Parametre" />
+          <xsd:element xmlns:q39="http://kps.nvi.gov.tr/2011/01/01" minOccurs="0" name="KayitYeriBilgisi" nillable="true" type="q39:TCKisiKayitYeriBilgisi" />
+          <xsd:element minOccurs="0" name="OncekiYabanciKimlikNo" nillable="true" type="xsd:long" />
+          <xsd:element minOccurs="0" name="TCKimlikNo" nillable="true" type="xsd:long" />
+          <xsd:element xmlns:q40="http://kps.nvi.gov.tr/2011/01/01" minOccurs="0" name="TemelBilgisi" nillable="true" type="q40:TCKisiTemelBilgisi" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="TCKisiBilgisi" nillable="true" type="tns:TCKisiBilgisi" />
+      <xsd:complexType name="TCCuzdanBilgisi">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="Ad" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="AnneAd" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="BabaAd" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="CuzdanKayitNo" nillable="true" type="xsd:long" />
+          <xsd:element xmlns:q41="http://kps.nvi.gov.tr/2011/01/01" minOccurs="0" name="CuzdanVerilmeNeden" nillable="true" type="q41:Parametre" />
+          <xsd:element xmlns:q42="http://kps.nvi.gov.tr/2011/01/01" minOccurs="0" name="DogumTarih" nillable="true" type="q42:TarihBilgisi" />
+          <xsd:element minOccurs="0" name="DogumYer" nillable="true" type="xsd:string" />
+          <xsd:element xmlns:q43="http://kps.nvi.gov.tr/2011/01/01" minOccurs="0" name="HataBilgisi" nillable="true" type="q43:Parametre" />
+          <xsd:element minOccurs="0" name="No" nillable="true" type="xsd:int" />
+          <xsd:element minOccurs="0" name="Seri" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="Soyad" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="TCKimlikNo" nillable="true" type="xsd:long" />
+          <xsd:element xmlns:q44="http://kps.nvi.gov.tr/2011/01/01" minOccurs="0" name="VerildigiIlce" nillable="true" type="q44:Parametre" />
+          <xsd:element xmlns:q45="http://kps.nvi.gov.tr/2011/01/01" minOccurs="0" name="VerilmeTarih" nillable="true" type="q45:TarihBilgisi" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="TCCuzdanBilgisi" nillable="true" type="tns:TCCuzdanBilgisi" />
+      <xsd:complexType name="TCKK">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="Ad" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="AnneAd" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="BabaAd" nillable="true" type="xsd:string" />
+          <xsd:element xmlns:q46="http://kps.nvi.gov.tr/2011/01/01" minOccurs="0" name="Cinsiyet" nillable="true" type="q46:Parametre" />
+          <xsd:element xmlns:q47="http://kps.nvi.gov.tr/2011/01/01" minOccurs="0" name="DogumTarih" nillable="true" type="q47:TarihBilgisi" />
+          <xsd:element xmlns:q48="http://kps.nvi.gov.tr/2011/01/01" minOccurs="0" name="HataBilgisi" nillable="true" type="q48:Parametre" />
+          <xsd:element xmlns:q49="http://kps.nvi.gov.tr/2011/01/01" minOccurs="0" name="KanGrubu" nillable="true" type="q49:Parametre" />
+          <xsd:element minOccurs="0" name="SeriNo" nillable="true" type="xsd:string" />
+          <xsd:element xmlns:q50="http://kps.nvi.gov.tr/2011/01/01" minOccurs="0" name="SonGecerlilikTarih" nillable="true" type="q50:TarihBilgisi" />
+          <xsd:element minOccurs="0" name="Soyad" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="SurucuBelgeYuklendiMi" nillable="true" type="xsd:boolean" />
+          <xsd:element xmlns:q51="http://kps.nvi.gov.tr/2011/01/01" minOccurs="0" name="SurucuBelgeYuklenmeTarih" nillable="true" type="q51:TarihBilgisi" />
+          <xsd:element minOccurs="0" name="TCKimlikNo" nillable="true" type="xsd:long" />
+          <xsd:element minOccurs="0" name="VerenMakam" nillable="true" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="TCKK" nillable="true" type="tns:TCKK" />
+      <xsd:complexType name="TCKKFotoBilgisi">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="Fotograf" nillable="true" type="xsd:base64Binary" />
+          <xsd:element xmlns:q52="http://kps.nvi.gov.tr/2011/01/01" minOccurs="0" name="HataBilgisi" nillable="true" type="q52:Parametre" />
+          <xsd:element minOccurs="0" name="TCKimlikNo" nillable="true" type="xsd:long" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="TCKKFotoBilgisi" nillable="true" type="tns:TCKKFotoBilgisi" />
+      <xsd:complexType name="YabanciKisiKutukleri">
+        <xsd:sequence>
+          <xsd:element xmlns:q53="http://kps.nvi.gov.tr/2011/01/01" minOccurs="0" name="HataBilgisi" nillable="true" type="q53:Parametre" />
+          <xsd:element minOccurs="0" name="KisiBilgisi" nillable="true" type="tns:YabanciKisiBilgisi" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="YabanciKisiKutukleri" nillable="true" type="tns:YabanciKisiKutukleri" />
+      <xsd:complexType name="YabanciKisiBilgisi">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="AnneKimlikNo" nillable="true" type="xsd:long" />
+          <xsd:element minOccurs="0" name="BabaKimlikNo" nillable="true" type="xsd:long" />
+          <xsd:element xmlns:q54="http://kps.nvi.gov.tr/2011/01/01" minOccurs="0" name="BitisTarihiBelirsizOlmaNeden" nillable="true" type="q54:Parametre" />
+          <xsd:element xmlns:q55="http://kps.nvi.gov.tr/2011/01/01" minOccurs="0" name="DogumTarih" nillable="true" type="q55:TarihBilgisi" />
+          <xsd:element minOccurs="0" name="DogumYerKod" nillable="true" type="xsd:int" />
+          <xsd:element xmlns:q56="http://kps.nvi.gov.tr/2011/01/01" minOccurs="0" name="DurumBilgisi" nillable="true" type="q56:YabanciKisiDurumBilgisi" />
+          <xsd:element minOccurs="0" name="EsKimlikNo" nillable="true" type="xsd:long" />
+          <xsd:element minOccurs="0" name="GercekKisiKimlikNo" nillable="true" type="xsd:long" />
+          <xsd:element xmlns:q57="http://kps.nvi.gov.tr/2011/01/01" minOccurs="0" name="HataBilgisi" nillable="true" type="q57:Parametre" />
+          <xsd:element minOccurs="0" name="IzinBaslangicTarih" nillable="true" type="xsd:dateTime" />
+          <xsd:element minOccurs="0" name="IzinBitisTarih" nillable="true" type="xsd:dateTime" />
+          <xsd:element xmlns:q58="http://kps.nvi.gov.tr/2011/01/01" minOccurs="0" name="IzinDuzenlenenIl" nillable="true" type="q58:Parametre" />
+          <xsd:element minOccurs="0" name="IzinNo" nillable="true" type="xsd:string" />
+          <xsd:element xmlns:q59="http://kps.nvi.gov.tr/2011/01/01" minOccurs="0" name="KaynakBirim" nillable="true" type="q59:Parametre" />
+          <xsd:element minOccurs="0" name="KazanilanTCKimlikNo" nillable="true" type="xsd:long" />
+          <xsd:element minOccurs="0" name="KimlikNo" nillable="true" type="xsd:long" />
+          <xsd:element xmlns:q60="http://kps.nvi.gov.tr/2011/01/01" minOccurs="0" name="OlumTarih" nillable="true" type="q60:TarihBilgisi" />
+          <xsd:element xmlns:q61="http://kps.nvi.gov.tr/2011/01/01" minOccurs="0" name="Statu" nillable="true" type="q61:Parametre" />
+          <xsd:element xmlns:q62="http://kps.nvi.gov.tr/2011/01/01" minOccurs="0" name="TemelBilgisi" nillable="true" type="q62:YabanciKisiTemelBilgisi" />
+          <xsd:element xmlns:q63="http://kps.nvi.gov.tr/2011/01/01" minOccurs="0" name="Uyruk" nillable="true" type="q63:Parametre" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="YabanciKisiBilgisi" nillable="true" type="tns:YabanciKisiBilgisi" />
+    </xsd:schema>
+    <xs:schema xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="anyType" nillable="true" type="xs:anyType" />
+      <xs:element name="anyURI" nillable="true" type="xs:anyURI" />
+      <xs:element name="base64Binary" nillable="true" type="xs:base64Binary" />
+      <xs:element name="boolean" nillable="true" type="xs:boolean" />
+      <xs:element name="byte" nillable="true" type="xs:byte" />
+      <xs:element name="dateTime" nillable="true" type="xs:dateTime" />
+      <xs:element name="decimal" nillable="true" type="xs:decimal" />
+      <xs:element name="double" nillable="true" type="xs:double" />
+      <xs:element name="float" nillable="true" type="xs:float" />
+      <xs:element name="int" nillable="true" type="xs:int" />
+      <xs:element name="long" nillable="true" type="xs:long" />
+      <xs:element name="QName" nillable="true" type="xs:QName" />
+      <xs:element name="short" nillable="true" type="xs:short" />
+      <xs:element name="string" nillable="true" type="xs:string" />
+      <xs:element name="unsignedByte" nillable="true" type="xs:unsignedByte" />
+      <xs:element name="unsignedInt" nillable="true" type="xs:unsignedInt" />
+      <xs:element name="unsignedLong" nillable="true" type="xs:unsignedLong" />
+      <xs:element name="unsignedShort" nillable="true" type="xs:unsignedShort" />
+      <xs:element name="char" nillable="true" type="tns:char" />
+      <xs:simpleType name="char">
+        <xs:restriction base="xs:int" />
+      </xs:simpleType>
+      <xs:element name="duration" nillable="true" type="tns:duration" />
+      <xs:simpleType name="duration">
+        <xs:restriction base="xs:duration">
+          <xs:pattern value="\-?P(\d*D)?(T(\d*H)?(\d*M)?(\d*(\.\d*)?S)?)?" />
+          <xs:minInclusive value="-P10675199DT2H48M5.4775808S" />
+          <xs:maxInclusive value="P10675199DT2H48M5.4775807S" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:element name="guid" nillable="true" type="tns:guid" />
+      <xs:simpleType name="guid">
+        <xs:restriction base="xs:string">
+          <xs:pattern value="[\da-fA-F]{8}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{12}" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:attribute name="FactoryType" type="xs:QName" />
+      <xs:attribute name="Id" type="xs:ID" />
+      <xs:attribute name="Ref" type="xs:IDREF" />
+    </xs:schema>
+    <xs:schema xmlns:tns="http://kps.nvi.gov.tr/2011/01/01" elementFormDefault="qualified" targetNamespace="http://kps.nvi.gov.tr/2011/01/01" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:complexType name="Parametre">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Aciklama" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Kod" nillable="true" type="xs:int" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="Parametre" nillable="true" type="tns:Parametre" />
+      <xs:complexType name="MaviKartKisiDurumBilgisi">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Durum" nillable="true" type="tns:Parametre" />
+          <xs:element minOccurs="0" name="MedeniHal" nillable="true" type="tns:Parametre" />
+          <xs:element minOccurs="0" name="OlumTarih" nillable="true" type="tns:TarihBilgisi" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="MaviKartKisiDurumBilgisi" nillable="true" type="tns:MaviKartKisiDurumBilgisi" />
+      <xs:complexType name="TarihBilgisi">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Ay" nillable="true" type="xs:int" />
+          <xs:element minOccurs="0" name="Gun" nillable="true" type="xs:int" />
+          <xs:element minOccurs="0" name="Yil" nillable="true" type="xs:int" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="TarihBilgisi" nillable="true" type="tns:TarihBilgisi" />
+      <xs:complexType name="MaviKartKisiTemelBilgisi">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Ad" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="AnneAd" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="BabaAd" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Cinsiyet" nillable="true" type="tns:Parametre" />
+          <xs:element minOccurs="0" name="DogumTarih" nillable="true" type="tns:TarihBilgisi" />
+          <xs:element minOccurs="0" name="DogumYer" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Soyad" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="MaviKartKisiTemelBilgisi" nillable="true" type="tns:MaviKartKisiTemelBilgisi" />
+      <xs:complexType name="TCKisiDurumBilgisi">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Din" nillable="true" type="tns:Parametre" />
+          <xs:element minOccurs="0" name="Durum" nillable="true" type="tns:Parametre" />
+          <xs:element minOccurs="0" name="MedeniHal" nillable="true" type="tns:Parametre" />
+          <xs:element minOccurs="0" name="OlumTarih" nillable="true" type="tns:TarihBilgisi" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="TCKisiDurumBilgisi" nillable="true" type="tns:TCKisiDurumBilgisi" />
+      <xs:complexType name="TCKisiKayitYeriBilgisi">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="AileSiraNo" nillable="true" type="xs:int" />
+          <xs:element minOccurs="0" name="BireySiraNo" nillable="true" type="xs:int" />
+          <xs:element minOccurs="0" name="Cilt" nillable="true" type="tns:Parametre" />
+          <xs:element minOccurs="0" name="Il" nillable="true" type="tns:Parametre" />
+          <xs:element minOccurs="0" name="Ilce" nillable="true" type="tns:Parametre" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="TCKisiKayitYeriBilgisi" nillable="true" type="tns:TCKisiKayitYeriBilgisi" />
+      <xs:complexType name="TCKisiTemelBilgisi">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Ad" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="AnneAd" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="BabaAd" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Cinsiyet" nillable="true" type="tns:Parametre" />
+          <xs:element minOccurs="0" name="DogumTarih" nillable="true" type="tns:TarihBilgisi" />
+          <xs:element minOccurs="0" name="DogumYer" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Soyad" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="TCKisiTemelBilgisi" nillable="true" type="tns:TCKisiTemelBilgisi" />
+      <xs:complexType name="YabanciKisiDurumBilgisi">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Durum" nillable="true" type="tns:Parametre" />
+          <xs:element minOccurs="0" name="MedeniHal" nillable="true" type="tns:Parametre" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="YabanciKisiDurumBilgisi" nillable="true" type="tns:YabanciKisiDurumBilgisi" />
+      <xs:complexType name="YabanciKisiTemelBilgisi">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Ad" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="AnneAd" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="BabaAd" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Cinsiyet" nillable="true" type="tns:Parametre" />
+          <xs:element minOccurs="0" name="DogumYer" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Soyad" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="YabanciKisiTemelBilgisi" nillable="true" type="tns:YabanciKisiTemelBilgisi" />
+    </xs:schema>
+    <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Common.Types.Constants" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Common.Types.Constants" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:complexType name="ArrayOfCstBilesikKutukServisDoluBilesen">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="CstBilesikKutukServisDoluBilesen" type="tns:CstBilesikKutukServisDoluBilesen" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfCstBilesikKutukServisDoluBilesen" nillable="true" type="tns:ArrayOfCstBilesikKutukServisDoluBilesen" />
+      <xs:simpleType name="CstBilesikKutukServisDoluBilesen">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="TCKisiBilgisi">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="TCKKGeciciKimlikBilgisi">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="TCKKBilgisi">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">3</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="TCKKFotoBilgisi">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">4</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="NufusCuzdaniBilgisi">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">5</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="MaviKartliKisiBilgisi">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">6</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="MaviKartBilgisi">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">7</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="YabanciKisiBilgisi">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">8</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="YeniMaviKartGeciciKimlikBilgisi">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">9</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="YeniMaviKartBilgisi">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">10</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="YeniMaviKartFotoBilgisi">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">11</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:element name="CstBilesikKutukServisDoluBilesen" nillable="true" type="tns:CstBilesikKutukServisDoluBilesen" />
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="BilesikKutukSorgulaKimlikNoServis_Sorgula_InputMessage">
+    <wsdl:part name="parameters" element="tns:Sorgula" />
+  </wsdl:message>
+  <wsdl:message name="BilesikKutukSorgulaKimlikNoServis_Sorgula_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SorgulaResponse" />
+  </wsdl:message>
+  <wsdl:portType name="BilesikKutukSorgulaKimlikNoServis">
+    <wsdl:operation name="Sorgula">
+      <wsdl:input wsaw:Action="http://kps.nvi.gov.tr/2023/02/01/BilesikKutukSorgulaKimlikNoServis/Sorgula" message="tns:BilesikKutukSorgulaKimlikNoServis_Sorgula_InputMessage" />
+      <wsdl:output wsaw:Action="http://kps.nvi.gov.tr/2023/02/01/BilesikKutukSorgulaKimlikNoServis/SorgulaResponse" message="tns:BilesikKutukSorgulaKimlikNoServis_Sorgula_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="CustomBinding_BilesikKutukSorgulaKimlikNoServis" type="tns:BilesikKutukSorgulaKimlikNoServis">
+    <wsp:PolicyReference URI="#CustomBinding_BilesikKutukSorgulaKimlikNoServis_policy" />
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Sorgula">
+      <soap12:operation soapAction="http://kps.nvi.gov.tr/2023/02/01/BilesikKutukSorgulaKimlikNoServis/Sorgula" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="BilesikKutukSorgulaKimlikNoServis">
+    <wsdl:port name="CustomBinding_BilesikKutukSorgulaKimlikNoServis" binding="tns:CustomBinding_BilesikKutukSorgulaKimlikNoServis">
+      <soap12:address location="https://kpsv2.nvi.gov.tr/Services/RoutingService.svc" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>https://kpsv2.nvi.gov.tr/Services/RoutingService.svc</wsa10:Address>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

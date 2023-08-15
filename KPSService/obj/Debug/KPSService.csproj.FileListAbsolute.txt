@@ -1,0 +1,10 @@
+C:\Users\Imece\source\repos\KPSService\KPSService\obj\Debug\KPSService.csproj.AssemblyReference.cache
+C:\Users\Imece\source\repos\KPSService\KPSService\obj\Debug\KPSService.csproj.CoreCompileInputs.cache
+C:\Users\Imece\source\repos\KPSService\KPSService\bin\Debug\KPSService.dll.config
+C:\Users\Imece\source\repos\KPSService\KPSService\bin\Debug\KPSService.dll
+C:\Users\Imece\source\repos\KPSService\KPSService\bin\Debug\KPSService.pdb
+C:\Users\Imece\source\repos\KPSService\KPSService\bin\Debug\microsoft.identitymodel.dll
+C:\Users\Imece\source\repos\KPSService\KPSService\obj\Debug\KPSService.csproj.CopyComplete
+C:\Users\Imece\source\repos\KPSService\KPSService\obj\Debug\KPSService.dll
+C:\Users\Imece\source\repos\KPSService\KPSService\obj\Debug\KPSService.pdb
+C:\Users\Imece\source\repos\KPSService\KPSService\bin\Debug\docs\README.md
