@@ -10,7 +10,7 @@
     <license type="expression">MIT</license>
     <repository type="git" url="https://github.com/mirzaKarahan/KPS-service"/>
     <description>$description$</description>
-    <releaseNotes>Summary of changes made in this release of the package.</releaseNotes>
+    <releaseNotes>Readme düzenlendi. Conf eklendi</releaseNotes>
     <copyright>$copyright$</copyright>
     <tags>KPS NVI Kimlik Paylaşım Sistemi</tags>
   </metadata>
