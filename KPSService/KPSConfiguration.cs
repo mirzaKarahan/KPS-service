@@ -7,8 +7,8 @@
         public static KPSConfiguration Instance = new KPSConfiguration();
 
         private string endPoint = "https://kpsv2.nvi.gov.tr/Services/RoutingService.svc";  
-        private string username = "kurumusername";
-        private string password = "kurumsifre";
+        private string username = null; //KRM ile başlayan kurum adı
+        private string password = null;
 
         #endregion
 
@@ -18,12 +18,24 @@
         {
         }
 
+        public KPSConfiguration setUsername(string _username)
+        {
+            this.username = _username;
+            return Instance;
+        }
+
+        public KPSConfiguration setPassword(string _password)
+        {
+            this.password = _password;
+            return Instance;
+        }
         #endregion
 
         #region Properties
 
         public string EndPoint
         {
+            
             get { return endPoint; }
         }
 

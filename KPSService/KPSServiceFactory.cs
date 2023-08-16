@@ -42,18 +42,21 @@ namespace KPSService
 
         #region Methods
 
-        public SecurityToken CreateToken()
+        public SecurityToken CreateToken(KPSConfiguration _kpsConfiguration)
         {
             if (token == null || token.ValidTo <= DateTime.Now.ToUniversalTime())
             {
+                if (_kpsConfiguration.Username == null || _kpsConfiguration.Password == null){
+                    throw new ArgumentNullException("Kullanıcı adı veya şifre girilmemiş");
+                }
                 WSTrustChannelFactory trustChannelFactory = new WSTrustChannelFactory("STSIssuerService");
                 trustChannelFactory.TrustVersion = TrustVersion.WSTrust13;
-                trustChannelFactory.Credentials.UserName.UserName = KPSConfiguration.Instance.Username;
-                trustChannelFactory.Credentials.UserName.Password = KPSConfiguration.Instance.Password;
+                trustChannelFactory.Credentials.UserName.UserName = _kpsConfiguration.Username;
+                trustChannelFactory.Credentials.UserName.Password = _kpsConfiguration.Password;
 
                 WSTrustChannel channel = (WSTrustChannel)trustChannelFactory.CreateChannel();
                 RequestSecurityToken rst = new RequestSecurityToken(RequestTypes.Issue);
-                rst.AppliesTo = new EndpointAddress(KPSConfiguration.Instance.EndPoint);
+                rst.AppliesTo = new EndpointAddress(_kpsConfiguration.EndPoint);
                 RequestSecurityTokenResponse rstr;
 
                 token = channel.Issue(rst, out rstr);

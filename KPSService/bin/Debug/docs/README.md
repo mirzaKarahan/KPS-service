@@ -7,4 +7,4 @@ Bu kütüphane, KPS SOAP sistemine .Net Framework 4.8 ile erişim sağlamak içi
 Kütüphaneyi NuGet üzerinden projenize eklemek için şu komutu kullanabilirsiniz:
 
 ```bash
-Install-Package [PaketAdı] -Version [Versiyon]
+dotnet add package KPSService --version 1.0.0
