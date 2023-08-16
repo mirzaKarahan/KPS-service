@@ -1,15 +1,15 @@
 # KPS-service
-Kimlik Paylaşım Sistemi .Net Framework 4.8
+Kimlik PaylaÅŸÄ±m Sistemi .Net Framework 4.8
 
-# KPS SOAP Sistemi Kütüphanesi
-Bu kütüphane, KPS SOAP sistemine .Net Framework 4.8 ile erişim sağlamak için tasarlanmıştır. Kütüphaneyi NuGet üzerinde yayınlamayı planlıyorsanız, bu README dosyası size başlangıç için yardımcı olacaktır.
+# KPS SOAP Sistemi KÃ¼tÃ¼phanesi
+Bu kÃ¼tÃ¼phane, KPS SOAP sistemine .Net Framework 4.8 ile eriÅŸim saÄŸlamak iÃ§in tasarlanmÄ±ÅŸtÄ±r. KÃ¼tÃ¼phaneyi NuGet Ã¼zerinde yayÄ±nlamayÄ± planlÄ±yorsanÄ±z, bu README dosyasÄ± size baÅŸlangÄ±Ã§ iÃ§in yardÄ±mcÄ± olacaktÄ±r.
 
 ## Teknik Bilgiler
-KPS sisteminin teknik alt yapısı hakkında detaylı bilgi için bu [linki](https://kpsbasvuru.nvi.gov.tr/Acik/KpsTeknikBilgi) ziyaret edebilirsiniz.
+KPS sisteminin teknik alt yapÄ±sÄ± hakkÄ±nda detaylÄ± bilgi iÃ§in bu [linki](https://kpsbasvuru.nvi.gov.tr/Acik/KpsTeknikBilgi) ziyaret edebilirsiniz.
 
 ## Kurulum
 
-Kütüphaneyi NuGet üzerinden projenize eklemek için şu komutu kullanabilirsiniz:
+KÃ¼tÃ¼phaneyi NuGet Ã¼zerinden projenize eklemek iÃ§in ÅŸu komutu kullanabilirsiniz:
 
 ```
 dotnet add package KPSService
@@ -18,7 +18,7 @@ dotnet add package KPSService
 ```
 dotnet add package Microsoft.IdentityModel --version 7.0.0
 ```
-## App.config dosyasına eklenecekler
+## App.config dosyasÄ±na eklenecekler
 ```
 <configuration>
 .
@@ -110,7 +110,7 @@ dotnet add package Microsoft.IdentityModel --version 7.0.0
 	</configuration>
 ```
 
-## Kullanımı
+## KullanÄ±mÄ±
 ```bash
 BilesikKutuk bilesikKutuk = new BilesikKutuk(17497644136, 1996, 12, 10);
 bilesikKutuk.setConf(KPSConfiguration.Instance
