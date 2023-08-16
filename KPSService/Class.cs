@@ -8,7 +8,7 @@ namespace KPSService
 {
     public class Class
     {
-        BilesikKutuk bk = new BilesikKutuk(17497644136, 1996, 12, 10);
+        BilesikKutuk bk = new BilesikKutuk(1111111111, 1111, 11, 11);
 
     }
 }
