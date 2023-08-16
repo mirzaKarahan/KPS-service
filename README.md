@@ -112,7 +112,7 @@ dotnet add package Microsoft.IdentityModel --version 7.0.0
 
 ## Kullanımı
 ```bash
-BilesikKutuk bilesikKutuk = new BilesikKutuk(17497644136, 1996, 12, 10);
+BilesikKutuk bilesikKutuk = new BilesikKutuk(12345678910, 1234, 12, 12);
 bilesikKutuk.setConf(KPSConfiguration.Instance
     .setUsername("KRM-123456")
     .setPassword("123456"));
